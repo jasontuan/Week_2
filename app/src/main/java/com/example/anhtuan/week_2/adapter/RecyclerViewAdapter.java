@@ -48,12 +48,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Doc doc = docList.get(position);
 //        Glide.with(context).load("http://image.tmdb.org/t/p/w500" + doc.getUr)
         holder.tvSnippet.setText(doc.getSnippet());
-        holder.cvArticle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClickListener.OnItemClick(position);
-            }
-        });
+//        holder.cvArticle.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onItemClickListener.OnItemClick(position);
+//            }
+//        });
     }
 
     @Override

@@ -10,7 +10,7 @@ public class ModelMain {
     @SerializedName("copyright")
     @Expose
     private String copyright;
-    @SerializedName("responseArticle")
+    @SerializedName("response")
     @Expose
     private ResponseArticle responseArticle;
 

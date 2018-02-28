@@ -2,8 +2,11 @@ package com.example.anhtuan.week_2.presenter;
 
 import com.example.anhtuan.week_2.api.ArticleAPI;
 import com.example.anhtuan.week_2.contract.IArticle;
+import com.example.anhtuan.week_2.model.Doc;
 import com.example.anhtuan.week_2.model.ModelMain;
-import com.example.anhtuan.week_2.model.ResponseArticle;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -12,15 +15,15 @@ import retrofit2.Response;
 public class PresenterArticleImpl implements IArticle.PresenterArticle {
 
     IArticle.IView iView;
-    ResponseArticle responseArticle;
+    List<Doc> docList;
 
-    public PresenterArticleImpl(IArticle.IView iView, ResponseArticle responseArticle) {
+    public PresenterArticleImpl(IArticle.IView iView) {
         this.iView = iView;
-        this.responseArticle = responseArticle;
+        this.docList = new ArrayList<>();
     }
 
-    public ResponseArticle getResponseArticle() {
-        return responseArticle;
+    public List<Doc> getDocList() {
+        return docList;
     }
 
     @Override
@@ -31,13 +34,14 @@ public class PresenterArticleImpl implements IArticle.PresenterArticle {
             @Override
             public void onResponse(Call<ModelMain> call, Response<ModelMain> response) {
                 if (response.body() != null) {
-
+                    docList.addAll(response.body().getResponseArticle().getDocs());
                 }
+                iView.showDataSuccess();
             }
 
             @Override
             public void onFailure(Call<ModelMain> call, Throwable t) {
-
+                iView.showDataFail();
             }
         });
     }

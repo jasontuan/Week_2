@@ -12,6 +12,6 @@ public interface ArticleAPI {
     String URL_BASE = "http://api.nytimes.com/svc/search/v2/";
 
     @GET("articlesearch.json")
-    Call<ModelMain<ResponseArticle>> getAllArticle(@Query("api-key") String api_key, @Query("page") int page);
+    Call<ModelMain> getAllArticle(@Query("api-key") String api_key, @Query("page") int page);
 
 }
