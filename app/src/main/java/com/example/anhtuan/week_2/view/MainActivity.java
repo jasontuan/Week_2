@@ -1,9 +1,13 @@
 package com.example.anhtuan.week_2.view;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.anhtuan.week_2.R;
@@ -16,6 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.widget.Toast.makeText;
 
 public class MainActivity extends AppCompatActivity implements IArticle.IView {
 
@@ -63,12 +69,33 @@ public class MainActivity extends AppCompatActivity implements IArticle.IView {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_icon, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.icon_search:
+                Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.icon_filter:
+                Intent intent = new Intent(MainActivity.this, FilterActivity.class);
+                startActivity(intent);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void showDataSuccess() {
         recyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showDataFail() {
-        Toast.makeText(this, "Show Fail", Toast.LENGTH_SHORT).show();
+        makeText(this, "Show Fail", Toast.LENGTH_SHORT).show();
     }
 }

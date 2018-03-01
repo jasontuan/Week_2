@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.anhtuan.week_2.R;
 import com.example.anhtuan.week_2.contract.IArticle;
 import com.example.anhtuan.week_2.model.Doc;
@@ -39,7 +38,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public DataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.items, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.items_main, parent, false);
         return new DataViewHolder(view);
     }
 
