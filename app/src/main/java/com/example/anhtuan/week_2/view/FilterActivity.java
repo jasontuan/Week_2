@@ -1,26 +1,34 @@
 package com.example.anhtuan.week_2.view;
 
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.anhtuan.week_2.R;
-import com.example.anhtuan.week_2.fragments.FilterDialogFragment;
+import com.example.anhtuan.week_2.fragments.DatePickerFragment;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FilterActivity extends AppCompatActivity {
 
+    @BindView(R.id.spn_sortOrder)
+    Spinner spnSortOrder;
     @BindView(R.id.tv_beginDate)
     TextView tvBeginDate;
-    @BindView(R.id.tv_sortOrder)
-    TextView tvSortOrder;
+
     Calendar calendar;
+
+    List<String> sortList = new ArrayList<>();
     int year, month, day;
 
     private void showDate(int year, int month, int day) {
@@ -33,29 +41,40 @@ public class FilterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_filter);
         ButterKnife.bind(this);
 
+        sortList.add("Newest");
+        sortList.add("Oldest");
+
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        tvSortOrder.setText("Newest");
 
         showDate(year, month + 1, day);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_items, sortList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        spnSortOrder.setAdapter(arrayAdapter);
+        spnSortOrder.setOnItemSelectedListener(new SpinnerOnItemSelected());
 
         tvBeginDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DialogFragment dialogFragment = new DatePickerFragment();
+               dialogFragment.show(getSupportFragmentManager(), "Date Picker");
             }
         });
+    }
 
-        tvSortOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FilterDialogFragment filterDialogFragment = FilterDialogFragment.newIntFragment();
-                filterDialogFragment.show(fragmentManager, null);
-            }
-        });
+    private class SpinnerOnItemSelected implements AdapterView.OnItemSelectedListener {
 
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
     }
 
 }
