@@ -12,8 +12,13 @@ public interface IArticle {
         void getDataArticle(ArticleAPI articleAPI, int page);
     }
 
+    interface PresenterFilter {
+        void getDataFilter();
+    }
+
     interface IView {
         void showDataSuccess();
+
         void showDataFail();
     }
 }

@@ -3,4 +3,7 @@
     <string name="begin_date">Begin Date</string>
     <string name="sort_order">Sort Order</string>
     <string name="new_desk">New Desk</string>
+    <string name="save">Save</string>
+    <string name="filter">Filter</string>
+    <string name="search">Search</string>
 </resources>

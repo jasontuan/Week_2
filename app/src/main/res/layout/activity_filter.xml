@@ -7,6 +7,12 @@
     android:padding="10dp"
     tools:context="com.example.anhtuan.week_2.view.FilterActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        tools:visibility="invisible" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +22,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="50dp"
             android:orientation="vertical">
 
             <TextView
@@ -37,7 +43,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="50dp"
             android:orientation="vertical">
 
             <TextView
@@ -60,7 +66,25 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:textSize="20sp"
+        tools:ignore="RtlSymmetry"
+        tools:visibility="invisible" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="15dp"
         android:text="@string/new_desk"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:ignore="RtlSymmetry" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

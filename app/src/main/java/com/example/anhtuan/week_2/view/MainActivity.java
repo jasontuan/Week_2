@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements IArticle.IView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ArticleAPI.URL_BASE)
                 .addConverterFactory(GsonConverterFactory.create())
