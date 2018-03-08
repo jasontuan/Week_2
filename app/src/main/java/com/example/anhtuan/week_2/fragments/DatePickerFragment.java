@@ -1,5 +1,6 @@
 package com.example.anhtuan.week_2.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -22,6 +23,7 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@SuppressLint("ValidFragment")
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     Calendar calendar;
@@ -40,6 +42,10 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         TextView tvBeginDate = (TextView) getActivity().findViewById(R.id.tv_beginDate);
-        tvBeginDate.setText(new StringBuilder().append(dayOfMonth).append("/").append(month).append("/").append(year));
+        if (month < 10 || dayOfMonth < 10) {
+            tvBeginDate.setText(new StringBuilder().append(year).append(0).append(month + 1).append(0).append(dayOfMonth));
+        } else {
+            tvBeginDate.setText(new StringBuilder().append(year).append(month + 1).append(dayOfMonth));
+        }
     }
 }

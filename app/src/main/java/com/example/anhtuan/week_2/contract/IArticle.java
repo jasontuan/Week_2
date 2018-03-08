@@ -5,11 +5,12 @@ import com.example.anhtuan.week_2.api.ArticleAPI;
 public interface IArticle {
 
     interface OnItemClickListener {
-        void OnItemClick(int position);
+        void OnItemClick(int position, boolean selected);
     }
 
     interface PresenterArticle {
-        void getDataArticle(ArticleAPI articleAPI, int page);
+        void getDataArticle(ArticleAPI articleAPI, int page, String q,
+                            String begin_date, String sort);
     }
 
     interface PresenterFilter {

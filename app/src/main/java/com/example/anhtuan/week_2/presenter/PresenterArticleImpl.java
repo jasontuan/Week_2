@@ -27,9 +27,9 @@ public class PresenterArticleImpl implements IArticle.PresenterArticle {
     }
 
     @Override
-    public void getDataArticle(ArticleAPI articleAPI, int page) {
+    public void getDataArticle(ArticleAPI articleAPI, int page, String q, String begin_date, String sort) {
         String api_key = "e579cea5b21249dd939b702102f3cef2";
-        Call<ModelMain> call = articleAPI.getAllArticle(api_key, page);
+        Call<ModelMain> call = articleAPI.getAllArticle(api_key, page, q, begin_date, sort);
         call.enqueue(new Callback<ModelMain>() {
             @Override
             public void onResponse(Call<ModelMain> call, Response<ModelMain> response) {

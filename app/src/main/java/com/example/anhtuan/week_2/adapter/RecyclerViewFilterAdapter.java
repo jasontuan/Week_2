@@ -25,13 +25,19 @@ import butterknife.ButterKnife;
 
 public class RecyclerViewFilterAdapter extends RecyclerView.Adapter<RecyclerViewFilterAdapter.DataFilterViewHolder> {
 
-    IArticle.OnItemClickListener onItemClickListener;
-    Context context;
-    List<ImageFilter> imageFilterList;
+    private IArticle.OnItemClickListener onItemClickListener;
+    private Context context;
+    private List<ImageFilter> imageFilterList;
+    private int curPos = -1;
 
     public RecyclerViewFilterAdapter(Context context, List<ImageFilter> imageFilterList) {
         this.context = context;
         this.imageFilterList = imageFilterList;
+
+    }
+
+    public void setCurPos(int curPos) {
+        this.curPos = curPos;
     }
 
     public void setOnItemClickListener(IArticle.OnItemClickListener onItemClickListener) {
@@ -47,16 +53,28 @@ public class RecyclerViewFilterAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(@NonNull final DataFilterViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-        ImageFilter imageFilter = imageFilterList.get(position);
+        final ImageFilter imageFilter = imageFilterList.get(position);
         Glide.with(context).load(imageFilter.getImageLink()).into(holder.imgDesk);
         holder.tvDesk.setText(imageFilter.getImageName());
         holder.cvDesk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.rlItemsFilter.setBackgroundColor(Color.YELLOW);
-                onItemClickListener.OnItemClick(position);
+                curPos = position;
+                if (!imageFilter.isSelected()) {
+                    onItemClickListener.OnItemClick(position, true);
+                } else {
+                    onItemClickListener.OnItemClick(position, false);
+                }
+                notifyDataSetChanged();
             }
         });
+        if (position == curPos && !imageFilter.isSelected()) {
+            holder.rlItemsFilter.setBackgroundColor(Color.YELLOW);
+            imageFilter.setSelected(true);
+        } else {
+            holder.rlItemsFilter.setBackgroundColor(Color.WHITE);
+            imageFilter.setSelected(false);
+        }
     }
 
     @Override
@@ -75,7 +93,7 @@ public class RecyclerViewFilterAdapter extends RecyclerView.Adapter<RecyclerView
         @BindView(R.id.rl_itemsfilter)
         RelativeLayout rlItemsFilter;
 
-        public DataFilterViewHolder(View itemView) {
+        DataFilterViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

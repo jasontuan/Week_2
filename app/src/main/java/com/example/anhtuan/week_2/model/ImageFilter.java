@@ -4,8 +4,17 @@ import java.util.List;
 
 public class ImageFilter {
 
-   String imageName;
-   String imageLink;
+    String imageName;
+    String imageLink;
+    boolean selected;
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 
     public ImageFilter(String imageName, String imageLink) {
         this.imageName = imageName;
