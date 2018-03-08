@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements IArticle.IView {
     String q, begin_date, sort;
     SharedPreferences sharedPreferences;
 
+    @BindView(R.id.swipeContainer)
+    SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.rcv_article)
     RecyclerView rcvArticle;
 
@@ -87,6 +90,13 @@ public class MainActivity extends AppCompatActivity implements IArticle.IView {
                 startActivity(intent);
             }
         });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenterArticle.getDataArticle(articleAPI, page, q, begin_date, sort);
+            }
+        });
     }
 
     @Override
@@ -118,11 +128,13 @@ public class MainActivity extends AppCompatActivity implements IArticle.IView {
 
     @Override
     public void showDataSuccess() {
+        swipeRefreshLayout.setRefreshing(false);
         recyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showDataFail() {
+        swipeRefreshLayout.setRefreshing(false);
         makeText(this, "Show Fail", Toast.LENGTH_SHORT).show();
     }
 }

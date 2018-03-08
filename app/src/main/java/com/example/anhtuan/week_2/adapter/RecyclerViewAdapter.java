@@ -45,7 +45,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull DataViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Doc doc = docList.get(position);
-//        Glide.with(context).load("http://image.tmdb.org/t/p/w500" + doc.getUr)
         holder.tvSnippet.setText(doc.getSnippet());
         holder.cvArticle.setOnClickListener(new View.OnClickListener() {
             @Override
