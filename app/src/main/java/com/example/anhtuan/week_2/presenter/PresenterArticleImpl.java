@@ -1,13 +1,12 @@
 package com.example.anhtuan.week_2.presenter;
 
-import android.content.Context;
 
-import com.example.anhtuan.week_2.adapter.RecyclerViewAdapter;
+import android.support.annotation.NonNull;
+
 import com.example.anhtuan.week_2.api.ArticleAPI;
 import com.example.anhtuan.week_2.contract.IArticle;
 import com.example.anhtuan.week_2.model.Doc;
 import com.example.anhtuan.week_2.model.ModelMain;
-import com.example.anhtuan.week_2.view.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,7 @@ public class PresenterArticleImpl implements IArticle.PresenterArticle {
         Call<ModelMain> call = articleAPI.getAllArticle(api_key, page, q, begin_date, sort);
         call.enqueue(new Callback<ModelMain>() {
             @Override
-            public void onResponse(Call<ModelMain> call, Response<ModelMain> response) {
+            public void onResponse(@NonNull Call<ModelMain> call, @NonNull Response<ModelMain> response) {
                 if (response.body() != null) {
                     docList.addAll(response.body().getResponseArticle().getDocs());
                 }
@@ -44,7 +43,7 @@ public class PresenterArticleImpl implements IArticle.PresenterArticle {
             }
 
             @Override
-            public void onFailure(Call<ModelMain> call, Throwable t) {
+            public void onFailure(@NonNull Call<ModelMain> call, @NonNull Throwable t) {
                 iView.showDataFail();
             }
         });

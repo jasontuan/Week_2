@@ -15,9 +15,7 @@ import com.example.anhtuan.week_2.R;
 import com.example.anhtuan.week_2.contract.IArticle;
 import com.example.anhtuan.week_2.model.Doc;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,6 +73,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             ButterKnife.bind(this, itemView);
         }
     }
-
 
 }
