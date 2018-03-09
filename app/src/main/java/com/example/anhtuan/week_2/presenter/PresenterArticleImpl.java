@@ -1,9 +1,13 @@
 package com.example.anhtuan.week_2.presenter;
 
+import android.content.Context;
+
+import com.example.anhtuan.week_2.adapter.RecyclerViewAdapter;
 import com.example.anhtuan.week_2.api.ArticleAPI;
 import com.example.anhtuan.week_2.contract.IArticle;
 import com.example.anhtuan.week_2.model.Doc;
 import com.example.anhtuan.week_2.model.ModelMain;
+import com.example.anhtuan.week_2.view.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +18,8 @@ import retrofit2.Response;
 
 public class PresenterArticleImpl implements IArticle.PresenterArticle {
 
-    IArticle.IView iView;
-    List<Doc> docList;
+    private IArticle.IView iView;
+    private List<Doc> docList;
 
     public PresenterArticleImpl(IArticle.IView iView) {
         this.iView = iView;

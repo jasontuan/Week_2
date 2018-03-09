@@ -19,6 +19,8 @@ import com.example.anhtuan.week_2.api.ArticleAPI;
 import com.example.anhtuan.week_2.contract.IArticle;
 import com.example.anhtuan.week_2.presenter.PresenterArticleImpl;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Retrofit;
@@ -35,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements IArticle.IView {
     int page = 1;
     String q, begin_date, sort;
     SharedPreferences sharedPreferences;
+
+    Retrofit retrofit;
+    ArticleAPI articleAPI;
 
     @BindView(R.id.swipeContainer)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -54,14 +59,14 @@ public class MainActivity extends AppCompatActivity implements IArticle.IView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        Retrofit retrofit = new Retrofit.Builder()
+        retrofit = new Retrofit.Builder()
                 .baseUrl(ArticleAPI.URL_BASE)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         onReadSharePreferences();
 
-        final ArticleAPI articleAPI = retrofit.create(ArticleAPI.class);
+        articleAPI = retrofit.create(ArticleAPI.class);
         presenterArticle = new PresenterArticleImpl(this);
         recyclerViewAdapter = new RecyclerViewAdapter(this, presenterArticle.getDocList());
         gridLayoutManager = new GridLayoutManager(this, 3);
@@ -82,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements IArticle.IView {
                 }
             }
         });
+
         recyclerViewAdapter.setOnItemClickListener(new IArticle.OnItemClickListener() {
             @Override
             public void OnItemClick(int position, boolean selected) {
@@ -106,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements IArticle.IView {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                Search(query.trim());
                 return false;
             }
 
@@ -125,9 +132,6 @@ public class MainActivity extends AppCompatActivity implements IArticle.IView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.icon_search:
-                //Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
-                return true;
             case R.id.icon_filter:
                 Intent intent = new Intent(MainActivity.this, FilterActivity.class);
                 finish();
@@ -147,6 +151,13 @@ public class MainActivity extends AppCompatActivity implements IArticle.IView {
     public void showDataFail() {
         swipeRefreshLayout.setRefreshing(false);
         makeText(this, "Show Fail", Toast.LENGTH_SHORT).show();
+    }
+
+    public void Search(String strSearch) {
+        strSearch = strSearch.toLowerCase(Locale.getDefault());
+        presenterArticle.getDocList().clear();
+        presenterArticle.getDataArticle(articleAPI, page, strSearch, begin_date, sort);
+        recyclerViewAdapter.notifyDataSetChanged();
     }
 
 }

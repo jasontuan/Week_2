@@ -15,16 +15,18 @@ import com.example.anhtuan.week_2.R;
 import com.example.anhtuan.week_2.contract.IArticle;
 import com.example.anhtuan.week_2.model.Doc;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.DataViewHolder> {
 
-    IArticle.OnItemClickListener onItemClickListener;
-    Context context;
-    List<Doc> docList;
+    private IArticle.OnItemClickListener onItemClickListener;
+    private Context context;
+    private List<Doc> docList;
 
     public void setOnItemClickListener(IArticle.OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -68,9 +70,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @BindView(R.id.tv_snippet)
         TextView tvSnippet;
 
-        public DataViewHolder(View itemView) {
+        DataViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
+
+
 }
